@@ -25,6 +25,11 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "android": {
+      "package": "io.designcode.CursoRN"
+    },
+    "description": "Desarrollo de una aplicación de cursos con React Native y expo",
+    "githubUrl": "https://github.com/CrisRonda/DesingCodeApp"
   }
 }

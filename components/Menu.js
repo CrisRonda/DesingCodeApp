@@ -5,7 +5,7 @@ import { Ionicons } from "@expo/vector-icons";
 import MenuItem from "./MenuItem";
 import { connect } from "react-redux";
 const mapStateToProps = state => {
-  return { action: state.action, name: state.name };
+  return { action: state.action };
 };
 function mapDispatchToProps(dispatch) {
   return {
@@ -48,7 +48,7 @@ class Menu extends React.Component {
       <AnimatedContainer style={{ top: this.state.top }}>
         <Cover>
           <Image source={require("../assets/background2.jpg")} />
-          <Title>Cristian</Title>
+          <Title>{name}</Title>
           <Subtitle>Designer at Design+Code</Subtitle>
         </Cover>
         <TouchableOpacity

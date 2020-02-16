@@ -6,16 +6,19 @@ import HomeScreen from "../screens/HomeScreen";
 import SectionScreen from "../screens/SectionScreen";
 import CoursesScreen from "../screens/CoursesScreen";
 import ProjectsScreen from "../screens/ProjectsScreen";
+import VideoScreen from "../screens/VideoScreen";
 import { Ionicons } from "@expo/vector-icons";
 const activeColor = "#4775f2";
 const inactiveColor = "#b8bece";
 const HomeStack = createStackNavigator({
   Home: HomeScreen,
-  Section: SectionScreen
+  Section: SectionScreen,
+  Video: VideoScreen
 });
 HomeStack.navigationOptions = ({ navigation }) => {
   const routeName = navigation.state.routes[navigation.state.index].routeName;
-  let tabBarVisible = routeName == "Section" ? false : true;
+  let tabBarVisible =
+    routeName == "Section" || routeName == "Video" ? false : true;
   return {
     tabBarVisible,
     tabBarLabel: "Home",

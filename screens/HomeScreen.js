@@ -15,7 +15,44 @@ import { NotificationIcon } from "../components/Icons";
 import Menu from "../components/Menu";
 import { connect } from "react-redux";
 import Avatar from "../components/Avatar";
-
+import { Query } from "react-apollo";
+import gql from "graphql-tag";
+import ModalLogin from "../components/ModalLogin";
+import NotificationButton from "../components/NotificationButton";
+import Notifications from "../components/Notifications";
+const CardsQuery = gql`
+  {
+    cardsCollection {
+      items {
+        title
+        subtitle
+        image {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+        subtitle
+        caption
+        logo {
+          title
+          description
+          contentType
+          fileName
+          size
+          url
+          width
+          height
+        }
+        content
+      }
+    }
+  }
+`;
 class HomeScreen extends React.Component {
   static navigationOptions = {
     header: null
@@ -54,26 +91,32 @@ class HomeScreen extends React.Component {
     }
   };
   render() {
-    const { openMenu, name } = this.props;
+    const { openMenu, name, openLogin, action } = this.props;
+    console.log(action, "Value home");
     const { scale, opacity } = this.state;
     return (
       <RootView>
-        <Menu />
+        <Menu name={name} />
         <AnimatedContainer style={{ transform: [{ scale }], opacity: opacity }}>
           <SafeAreaView>
             <ScrollView showsVerticalScrollIndicator={false}>
               <TitleBar>
                 <TouchableOpacity
-                  onPress={openMenu}
+                  onPress={openLogin}
                   style={{ position: "absolute" }}
                 >
                   <Avatar />
                 </TouchableOpacity>
                 <Title>Bienvenido de nuevo</Title>
-                <Name>{name}</Name>
-                <NotificationIcon
+                <TouchableOpacity onPress={openMenu}>
+                  <Name>{name}</Name>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => this.props.openNotif()}
                   style={{ position: "absolute", right: 20, top: 5 }}
-                />
+                >
+                  <NotificationButton />
+                </TouchableOpacity>
               </TitleBar>
               <ScrollView
                 horizontal
@@ -95,24 +138,35 @@ class HomeScreen extends React.Component {
                 showsHorizontalScrollIndicator={false}
                 style={{ paddingBottom: 30 }}
               >
-                {cards.map((item, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    onPress={() =>
-                      this.props.navigation.push("Section", {
-                        section: item
-                      })
-                    }
-                  >
-                    <Card
-                      title={item.title}
-                      image={item.image}
-                      caption={item.caption}
-                      logo={item.logo}
-                      subtitle={item.subtitle}
-                    />
-                  </TouchableOpacity>
-                ))}
+                <Query query={CardsQuery}>
+                  {({ loading, error, data }) => {
+                    if (loading) return <Message>Cargando...</Message>;
+                    if (error) return <Message>Error...</Message>;
+                    return (
+                      <CardsContainer>
+                        {data.cardsCollection.items.map((item, index) => (
+                          <TouchableOpacity
+                            key={index}
+                            onPress={() =>
+                              this.props.navigation.push("Section", {
+                                section: item
+                              })
+                            }
+                          >
+                            <Card
+                              title={item.title}
+                              image={item.image.url}
+                              caption={item.caption}
+                              logo={item.logo.url}
+                              subtitle={item.subtitle}
+                              content={item.content}
+                            />
+                          </TouchableOpacity>
+                        ))}
+                      </CardsContainer>
+                    );
+                  }}
+                </Query>
               </ScrollView>
               <Subtitle>Cursos populares</Subtitle>
               {courses.map((course, index) => (
@@ -130,6 +184,8 @@ class HomeScreen extends React.Component {
             </ScrollView>
           </SafeAreaView>
         </AnimatedContainer>
+        <ModalLogin />
+        <Notifications />
       </RootView>
     );
   }
@@ -144,6 +200,14 @@ function mapDispatchToProps(dispatch) {
     openMenu: () =>
       dispatch({
         type: "OPEN_MENU"
+      }),
+    openLogin: () =>
+      dispatch({
+        type: "OPEN_LOGIN"
+      }),
+    openNotif: () =>
+      dispatch({
+        type: "OPEN_NOTIF"
       })
   };
 }
@@ -164,6 +228,18 @@ const Title = styled.Text`
   font-size: 16px;
   color: #b8bece;
   font-weight: 500;
+`;
+const Message = styled.Text`
+  margin: 20px;
+  color: #b8bece;
+  font-size: 15px;
+  font-weight: 500;
+`;
+
+const CardsContainer = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding-left: 10px;
 `;
 const Name = styled.Text`
   font-size: 20px;
@@ -209,36 +285,6 @@ const logos = [
   {
     image: require("../assets/logo-sketch.png"),
     text: "Sketch"
-  }
-];
-const cards = [
-  {
-    title: "React Native for Designers",
-    image: require("../assets/background11.jpg"),
-    subtitle: "React Native",
-    caption: "1 of 12 sections",
-    logo: require("../assets/logo-react.png")
-  },
-  {
-    title: "Styled Components",
-    image: require("../assets/background12.jpg"),
-    subtitle: "React Native",
-    caption: "2 of 12 sections",
-    logo: require("../assets/logo-react.png")
-  },
-  {
-    title: "Props and Icons",
-    image: require("../assets/background13.jpg"),
-    subtitle: "React Native",
-    caption: "3 of 12 sections",
-    logo: require("../assets/logo-react.png")
-  },
-  {
-    title: "Static Data and Loop",
-    image: require("../assets/background14.jpg"),
-    subtitle: "React Native",
-    caption: "4 of 12 sections",
-    logo: require("../assets/logo-react.png")
   }
 ];
 const courses = [

@@ -1,5 +1,5 @@
-import React from 'react'
-import Svg, { G, Path, Defs, ClipPath } from 'react-native-svg'
+import React from "react";
+import Svg, { G, Path, Defs, ClipPath } from "react-native-svg";
 
 export const NotificationIcon = props => (
   <Svg width={24} height={24} fill="#f00" {...props}>
@@ -12,7 +12,7 @@ export const NotificationIcon = props => (
       </ClipPath>
     </Defs>
   </Svg>
-)
+);
 export const CoursesIcon = props => (
   <Svg width={16} height={16} fill="#4775f2" {...props}>
     <G clipPath="url(#prefix__clip0)">
@@ -32,7 +32,7 @@ export const CoursesIcon = props => (
       </ClipPath>
     </Defs>
   </Svg>
-)
+);
 export const HomeIcon = props => (
   <Svg width={16} height={16} fill="#4775f2" {...props}>
     <G clipPath="url(#prefix__clip0)">
@@ -47,7 +47,7 @@ export const HomeIcon = props => (
       </ClipPath>
     </Defs>
   </Svg>
-)
+);
 export const LightIcon = props => (
   <Svg width={16} height={16} fill="#4775f2" {...props}>
     <Path
@@ -59,7 +59,7 @@ export const LightIcon = props => (
       fill="#546BFB"
     />
   </Svg>
-)
+);
 export const LogoutIcon = props => (
   <Svg width={16} height={16} fill="#4775f2" {...props}>
     <Path
@@ -71,7 +71,7 @@ export const LogoutIcon = props => (
       fill="#D7DCFF"
     />
   </Svg>
-)
+);
 export const MenuIcon = props => (
   <Svg height={16} width={16} {...props}>
     <Defs>
@@ -83,7 +83,7 @@ export const MenuIcon = props => (
     <Use xlinkHref="#prefix__b" fill="#4775F2" />
     <Use xlinkHref="#prefix__c" fill="#4775F2" fillOpacity={0.49} />
   </Svg>
-)
+);
 export const NightIcon = props => (
   <Svg width={16} height={16} fill="#4775f2" {...props}>
     <Path
@@ -91,22 +91,8 @@ export const NightIcon = props => (
       fill="#999"
     />
   </Svg>
-)
-export const PlayIcon = props => (
-  <Svg width={16} height={16} fill="#4775f2" {...props}>
-    <G clipPath="url(#prefix__clip0)">
-      <Path
-        d="M14 7.999a.999.999 0 00-.427-.819l-10-7A1 1 0 002 .999V15a.999.999 0 001.573.819l10-7A.995.995 0 0014 8.001v-.002c0 .001 0 .001 0 0z"
-        fill="#546BFB"
-      />
-    </G>
-    <Defs>
-      <ClipPath id="prefix__clip0">
-        <Path fill="#fff" d="M0 0h16v16H0z" />
-      </ClipPath>
-    </Defs>
-  </Svg>
-)
+);
+
 export const RefreshIcon = props => (
   <Svg width={16} height={16} fill="#4775f2" {...props}>
     <Path
@@ -118,7 +104,7 @@ export const RefreshIcon = props => (
       fill="#D7DCFF"
     />
   </Svg>
-)
+);
 export const StartIcon = props => (
   <Svg width={16} height={16} fill="#4775f2" {...props}>
     <G clipPath="url(#prefix__clip0)">
@@ -133,4 +119,14 @@ export const StartIcon = props => (
       </ClipPath>
     </Defs>
   </Svg>
-)
+);
+export const PlayIcon = props => (
+  <Svg height={38.15} width={38.15} {...props}>
+    <Path
+      opacity={1}
+      d="M8.153 14.585c-1.73-1.703-.825-4.649 1.563-5.087l19.148-3.516c2.072-.38 3.88 1.436 3.49 3.506L28.8 28.364c-.444 2.36-3.343 3.267-5.053 1.582L8.153 14.586z"
+      fill="#33CEFF"
+      transform="rotate(45 19.075 19.075)"
+    />
+  </Svg>
+);
